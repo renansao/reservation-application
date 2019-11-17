@@ -2,6 +2,9 @@ package br.com.reservation.court.domain;
 
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "ReservationCollection")
 public class ReservationDomain {
 
 	private String courtID;
