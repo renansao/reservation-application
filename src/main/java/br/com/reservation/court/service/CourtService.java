@@ -23,5 +23,14 @@ public class CourtService {
 		
 		return court;
 	}
+
+	public CourtDomain retrieveCourtByNumber(int courtNumber) {
+		
+		CourtDomain court = new CourtDomain();
+		
+		court = courtDAO.findByCourtNumber(courtNumber);
+		
+		return court;
+	}
 	
 }

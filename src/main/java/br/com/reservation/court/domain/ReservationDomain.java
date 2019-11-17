@@ -7,19 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "ReservationCollection")
 public class ReservationDomain {
 
-	private String courtID;
-	
+	private PlayerDomain player;
+
 	private Date startDate;
-	
+
 	private Date endDate;
-
-	public String getCourtID() {
-		return courtID;
-	}
-
-	public void setCourtID(String courtID) {
-		this.courtID = courtID;
-	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -35,6 +27,14 @@ public class ReservationDomain {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public PlayerDomain getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(PlayerDomain player) {
+		this.player = player;
 	}
 	
 }

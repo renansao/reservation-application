@@ -1,5 +1,8 @@
 package br.com.reservation.court.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
@@ -16,6 +19,8 @@ public class CourtDomain {
 	
 	@NotNull
 	private int courtNumber;
+	
+	private List<ReservationDomain> reservations = new ArrayList<ReservationDomain>();
 
 	public String getCourtID() {
 		return courtID;
@@ -36,6 +41,9 @@ public class CourtDomain {
 	public void setCourtNumber(int courtNumber) {
 		this.courtNumber = courtNumber;
 	}
-	
+
+	public List<ReservationDomain> getReservations() {
+		return reservations;
+	}
 	
 }

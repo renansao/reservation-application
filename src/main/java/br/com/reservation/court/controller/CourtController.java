@@ -3,10 +3,13 @@ package br.com.reservation.court.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.reservation.court.DAO.CourtDAO;
 import br.com.reservation.court.domain.CourtDomain;
 import br.com.reservation.court.domain.CourtRequestDomain;
 import br.com.reservation.court.service.CourtService;
@@ -30,5 +33,16 @@ public class CourtController {
 		
 		return new ResponseEntity<>(court, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping(value="retrieveCourtByNumber/{courtNumber}")
+	public ResponseEntity<?> retrieveCourtByNumber(@PathVariable int courtNumber){
+		
+		CourtDomain court = new CourtDomain();
+		
+		court = courtService.retrieveCourtByNumber(courtNumber);
+		
+		
+		return new ResponseEntity<>(court, HttpStatus.OK);
 	}
 }
