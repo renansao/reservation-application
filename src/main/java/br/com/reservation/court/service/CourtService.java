@@ -1,0 +1,27 @@
+package br.com.reservation.court.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.reservation.court.DAO.CourtDAO;
+import br.com.reservation.court.domain.CourtDomain;
+import br.com.reservation.court.domain.CourtRequestDomain;
+
+@Service
+public class CourtService {
+	
+	@Autowired
+	private CourtDAO courtDAO;
+	
+	public CourtDomain createCourt(CourtRequestDomain courtRequest) {
+		
+		CourtDomain court = new CourtDomain();
+		court.setCourtName(courtRequest.getCourtName());
+		court.setCourtNumber(courtRequest.getCourtNumber());
+		
+		courtDAO.insert(court);
+		
+		return court;
+	}
+	
+}
