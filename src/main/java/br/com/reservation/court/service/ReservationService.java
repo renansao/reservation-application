@@ -2,7 +2,6 @@ package br.com.reservation.court.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,10 @@ public class ReservationService {
 	
 	@Autowired
 	private DateFormatter df;
+	
+	private int MIN_RESERVATION_PERIOD_IN_MINUTES = 60;
+	private int MAX_RESERVATION_PERIOD_IN_MINUTES = 120;
+	private int MAX_RESERVATION_WINDOW_IN_DAYS = 21;
 
 	public ReservationDomain makeReservation(ReservationRequestDomain reservationRequest) throws Exception {
 		
@@ -43,9 +46,20 @@ public class ReservationService {
 		LocalDateTime startDate = LocalDateTime.parse(reservationRequest.getStartDate(), df.formatter);
 		LocalDateTime endDate = LocalDateTime.parse(reservationRequest.getEndDate(), df.formatter);
 		
+		//Businness Rules (each comment line match the lines in the if clause)
+		//=========================================================================
+		//Both dates must be after the actual moment
+		//The end date cant be before the start date
+		//The reservation can't be made after 3 weeks from the actual moment 
+		
+		LocalDateTime maxReservationDateWindow = LocalDateTime.now(ZoneId.of("Chile/Continental"));
+		maxReservationDateWindow = maxReservationDateWindow.plusDays(MAX_RESERVATION_WINDOW_IN_DAYS);
+		
+		
 		if ((startDate.isBefore(now) || endDate.isBefore(now)) ||
-				(startDate.isAfter(endDate))) {
-			throw new Exception("Data ou horário inválidos");
+				(startDate.isAfter(endDate))||
+				((startDate.isAfter(maxReservationDateWindow) || endDate.isAfter(maxReservationDateWindow)))) {
+			throw new Exception("Invalid date or time");
 		}
 		
 		reservation.setStartDate(startDate);
