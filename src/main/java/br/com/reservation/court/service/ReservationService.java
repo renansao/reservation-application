@@ -1,7 +1,9 @@
 package br.com.reservation.court.service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,14 +53,19 @@ public class ReservationService {
 		//Both dates must be after the actual moment
 		//The end date cant be before the start date
 		//The reservation can't be made after 3 weeks from the actual moment 
+		//The reservation period must not be under 60 minutes
+		//The reservation period must not be over 120 mintues
 		
 		LocalDateTime maxReservationDateWindow = LocalDateTime.now(ZoneId.of("Chile/Continental"));
 		maxReservationDateWindow = maxReservationDateWindow.plusDays(MAX_RESERVATION_WINDOW_IN_DAYS);
 		
+		 System.out.println(ChronoUnit.MINUTES.between(startDate, endDate));
 		
 		if ((startDate.isBefore(now) || endDate.isBefore(now)) ||
 				(startDate.isAfter(endDate))||
-				((startDate.isAfter(maxReservationDateWindow) || endDate.isAfter(maxReservationDateWindow)))) {
+				((startDate.isAfter(maxReservationDateWindow) || endDate.isAfter(maxReservationDateWindow))) ||
+				(ChronoUnit.MINUTES.between(startDate, endDate)) < MIN_RESERVATION_PERIOD_IN_MINUTES || 
+				(ChronoUnit.MINUTES.between(startDate, endDate)) > MAX_RESERVATION_PERIOD_IN_MINUTES) {
 			throw new Exception("Invalid date or time");
 		}
 		
