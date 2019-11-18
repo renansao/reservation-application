@@ -9,5 +9,7 @@ import br.com.reservation.court.domain.CourtDomain;
 public interface CourtDAO extends MongoRepository<CourtDomain, String>{
 	
 	CourtDomain findByCourtNumber(int courtNumber);
+
+	CourtDomain findByCourtID(String courtID);
 	
 }

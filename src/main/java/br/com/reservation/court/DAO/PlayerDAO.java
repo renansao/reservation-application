@@ -7,5 +7,7 @@ import br.com.reservation.court.domain.PlayerDomain;
 
 @Repository
 public interface PlayerDAO extends MongoRepository<PlayerDomain, String>{
+	
+	PlayerDomain findByPlayerID(String playerID);
 
 }

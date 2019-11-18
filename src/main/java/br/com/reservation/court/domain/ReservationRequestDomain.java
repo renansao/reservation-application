@@ -1,7 +1,5 @@
 package br.com.reservation.court.domain;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
 
 public class ReservationRequestDomain {
@@ -13,24 +11,24 @@ public class ReservationRequestDomain {
 	private String playerID;
 	
 	@NotNull
-	private Date startDate;
+	private String startDate;
 	
 	@NotNull
-	private Date endDate;
-
-	public Date getStartDate() {
+	private String endDate;
+	
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

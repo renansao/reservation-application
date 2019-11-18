@@ -1,6 +1,6 @@
 package br.com.reservation.court.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,23 +9,23 @@ public class ReservationDomain {
 
 	private PlayerDomain player;
 
-	private Date startDate;
+	private LocalDateTime startDate;
 
-	private Date endDate;
-
-	public Date getStartDate() {
+	private LocalDateTime endDate;
+	
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 
