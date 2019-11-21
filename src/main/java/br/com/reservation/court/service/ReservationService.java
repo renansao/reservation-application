@@ -1,9 +1,11 @@
 package br.com.reservation.court.service;
 
-import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +71,26 @@ public class ReservationService {
 			throw new Exception("Invalid date or time");
 		}
 		
+		//Check to see if the reservation datetime is already being used (each comment line match the lines in the if clause)
+		//============================================================================================================================
+		//The requested datetime for the reservation start date cant be between the start and end date of an existing reservation
+		//The requested datetime for the reservation end date cant be between the start and end date of an existing reservation
+		//The requested datetime for the reservation starttime cant be before the start time of a reservation that already exists,
+		//and the endDate cant be after the end date of the same reservation, (otherwise the requested reservation would overlap the
+		//one that already exists)
+		//The requested datetime for the reservation startdate cant be the same as the startdate of an existing reservation
+		//The requested datetime for the reservation enddate cant be the same as the enddate of an existing reservation
+		
+		for (ReservationDomain reservationInCourt : courtDAO.findByCourtID(reservationRequest.getCourtID()).getReservations()) {
+			if (startDate.isAfter(reservationInCourt.getStartDate()) && startDate.isBefore(reservationInCourt.getEndDate()) ||
+					endDate.isAfter(reservationInCourt.getStartDate()) && endDate.isBefore(reservationInCourt.getEndDate()) ||
+					startDate.isBefore(reservationInCourt.getStartDate()) && endDate.isAfter(reservationInCourt.getEndDate()) ||
+					startDate.isEqual(reservationInCourt.getStartDate()) ||
+					endDate.isEqual(reservationInCourt.getEndDate())){
+				throw new Exception("Reservation datetime is already being used");
+			}
+		}
+		
 		reservation.setStartDate(startDate);
 		reservation.setEndDate(endDate);
 		
@@ -76,6 +98,29 @@ public class ReservationService {
 		
 		courtDAO.save(court);
 		return reservation;
+	}
+
+	public List<ReservationDomain> retrieveReservations(String courtID, String date) throws Exception {
+		
+		if (date.length() != 8) {
+			throw new Exception("Invalid Date");
+		}
+		
+		int yearInt = Integer.parseInt((String) date.subSequence(0, 4));
+		int monthInt = Integer.parseInt((String) date.subSequence(4, 6));
+		int dayInt = Integer.parseInt((String) date.subSequence(6, 8));
+		
+		LocalDate requestedDate = LocalDate.of(yearInt, monthInt, dayInt);
+		
+		List<ReservationDomain> reservationsInRequestedDate = new ArrayList<ReservationDomain>();
+		
+		for (ReservationDomain reservationsInCourt : courtDAO.findByCourtID(courtID).getReservations()) {
+			if (reservationsInCourt.getStartDate().toLocalDate().isEqual(requestedDate)) {
+				reservationsInRequestedDate.add(reservationsInCourt);
+			}
+		}
+		
+		return reservationsInRequestedDate;
 	}
 	
 }
