@@ -27,11 +27,11 @@ public class CourtService {
 		return court;
 	}
 
-	public CourtDomain retrieveCourtByNumber(int courtNumber) {
+	public CourtDomain retrieveCourtByID(int courtID) {
 		
 		CourtDomain court = new CourtDomain();
 		
-		court = courtDAO.findByCourtNumber(courtNumber);
+		court = courtDAO.findByCourtID(courtID);
 		
 		return court;
 	}
