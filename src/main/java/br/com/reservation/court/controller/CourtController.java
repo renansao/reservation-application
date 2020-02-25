@@ -39,6 +39,7 @@ public class CourtController {
 		
 	}
 	
+	@CrossOrigin("*")
 	@GetMapping(value="retrieveAllCourts")
 	public ResponseEntity<?> retrieveAllCourts (){
 		
