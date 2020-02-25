@@ -55,12 +55,12 @@ public class CourtController {
 	}
 	
 	@CrossOrigin("*")
-	@GetMapping(value="retrieveCourtByNumber/{courtNumber}")
-	public ResponseEntity<?> retrieveCourtByNumber(@PathVariable int courtNumber){
+	@GetMapping(value="retrieveCourtByID/{courtID}")
+	public ResponseEntity<?> retrieveCourtByNumber(@PathVariable String courtID){
 		
 		CourtDomain court = new CourtDomain();
 		
-		court = courtService.retrieveCourtByNumber(courtNumber);
+		court = courtService.retrieveCourtByID(courtID);
 		
 		
 		return new ResponseEntity<>(court, HttpStatus.OK);

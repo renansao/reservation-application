@@ -27,7 +27,7 @@ public class CourtService {
 		return court;
 	}
 
-	public CourtDomain retrieveCourtByID(int courtID) {
+	public CourtDomain retrieveCourtByID(String courtID) {
 		
 		CourtDomain court = new CourtDomain();
 		
