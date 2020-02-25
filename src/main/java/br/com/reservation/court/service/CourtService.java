@@ -40,7 +40,7 @@ public class CourtService {
 		
 		List<CourtDomain> allCourts = new ArrayList<CourtDomain>();
 		
-		courtDAO.findAll();
+		allCourts = courtDAO.findAll();
 		
 		return allCourts;
 	}
