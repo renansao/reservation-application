@@ -38,7 +38,7 @@ public class CourtController {
 		
 	}
 	
-	@GetMapping
+	@GetMapping(value="retrieveAllCourts")
 	public ResponseEntity<?> retrieveAllCourts (){
 		
 		List<CourtDomain> allCourts = new ArrayList<CourtDomain>();
