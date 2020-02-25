@@ -1,5 +1,8 @@
 package br.com.reservation.court.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,20 @@ public class CourtController {
 		
 		return new ResponseEntity<>(court, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> retrieveAllCourts (){
+		
+		List<CourtDomain> allCourts = new ArrayList<CourtDomain>();
+		
+		try {
+			allCourts = courtService.retrieveAllCourts();
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>(allCourts, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="retrieveCourtByNumber/{courtNumber}")

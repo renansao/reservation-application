@@ -1,5 +1,8 @@
 package br.com.reservation.court.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,15 @@ public class CourtService {
 		court = courtDAO.findByCourtNumber(courtNumber);
 		
 		return court;
+	}
+
+	public List<CourtDomain> retrieveAllCourts() {
+		
+		List<CourtDomain> allCourts = new ArrayList<CourtDomain>();
+		
+		courtDAO.findAll();
+		
+		return allCourts;
 	}
 	
 }
