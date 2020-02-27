@@ -22,6 +22,8 @@ public class CourtDomain {
 	
 	private String imageUrl;
 	
+	private String sport;
+	
 	private List<ReservationDomain> reservations = new ArrayList<ReservationDomain>();
 
 	public String getCourtID() {
@@ -54,6 +56,14 @@ public class CourtDomain {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getSport() {
+		return sport;
+	}
+
+	public void setSport(String sport) {
+		this.sport = sport;
 	}
 	
 }
